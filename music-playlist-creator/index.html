@@ -6,16 +6,55 @@
     
     <title>Music Playlist Explorer</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <!-- Your header content here -->
+        <h1>Music Playlist Explorer</h1>
     </header>
 
     <main> 
+
+        <!-- Modal -->
+        <div id="playlistModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <div id="playlist_details">                    
+                    <h1 id="playlistName"> Default Playlist Title </h1>                    
+                    <img id="playlistImage" src="/music-playlist-creator/assets/img/playlist.png" alt="Festival Image">
+                </div>
+                
+                <div id="playlistSongs">
+                    
+
+                </div>
+
+            </div>
+        </div>
+
         <!-- Your main content here -->
+        <section id="main_section">
+            <article onclick="openModal({name: 'Summer Beats Festival', imageUrl: 'path/to/festival.jpg', dates: 'July 15-17', location: 'Downtown Park', lineup: ['Artist A', 'Artist B']})" >
+                <div id="play_image" style="background-image: url('/music-playlist-creator/assets/img/post_malone.jpg');"></div>
+
+                <div id="playlist_det">
+                    <div id="play_name">
+                        <h3>Playlist title</h3>
+                        <p>Creator Name</p>  
+                    </div>
+                                  
+                    <div id="reactions">
+                        <i class="fa fa-heart" style="font-size:20px; color:red"></i>
+                        <p>5</p>
+                    </div>
+                </div>
+                
+            </article>        
+            
+        </section>
     </main>
 
     <footer>

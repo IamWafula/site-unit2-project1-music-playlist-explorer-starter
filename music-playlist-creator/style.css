@@ -1,6 +1,162 @@
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f8f8f8;
 }
+
+header {
+   display: flex;
+   align-content: center;
+
+}
+
+
+#main_section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+article {   
+    margin: 5%;
+    margin-bottom: 5%;
+    padding: 5px;
+    border-radius: 20px;
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+}
+
+article > h3 {
+    padding-bottom: 0rem;
+    margin-bottom: 0rem;
+}
+
+#play_image{
+    height: fit-content;
+    align-self: center;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: contain;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+#playlist_det{
+    display: flex;
+    justify-content: space-between;
+}
+
+#reactions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#reactions > p {
+    margin-left: 10px;    
+}
+
+
+/* CSS for Modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+ }
+ .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+ }
+
+ .modal-content > #playlistSongs {
+    display: flex;
+    flex-direction: column;
+ }
+
+ #modal_image {
+    width: 200px;
+    height: 200px;
+ }
+
+ #playlist_details{
+    background-color: rgba(230, 109, 17, 0.683);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    height: 300px;
+    justify-content: space-between;
+    align-items: center;
+ }
+
+ #playlistImage{
+    height: 200px;
+    width: 200px;
+    
+ }
+
+ #playlistSongs{
+    align-items: center;
+ }
+
+ #playlistSong {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-items: center;
+    border-radius: 20px;
+    margin-bottom: 20px;;
+    padding: 20px;
+    width: 70%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;    
+ }
+
+ #article_image{
+   width: 100px;
+   height: 100px;
+ }
+
+ #playlistSong  > p{
+    margin-left: auto;
+ }
+
+ #songDetails{
+   margin-left: 20px
+ }
+
+ #song_timer{
+    margin-right: 20px;
+ }
+
+ .close {
+    color: #aaa;
+    /* float: right; */
+    font-size: 28px;
+    font-weight: bold;
+ }
+ .close:hover,
+ .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+ }
+
