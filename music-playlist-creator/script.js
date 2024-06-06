@@ -2,8 +2,13 @@
 
 let all_playlists = data["playlists"];
 
+// add a heart on click
+
+document.getElementById("reactions").addEventListener("click", () => {
+   alert("clicked")
+})
+
 for (let playlist in all_playlists){
-   console.log(all_playlists[playlist]);
 
    let playlist_art = all_playlists[playlist].playlist_art;
    let playlist_name =  all_playlists[playlist].playlist_name;
@@ -15,28 +20,50 @@ for (let playlist in all_playlists){
 
    let new_article = document.createElement("article")
    new_article.innerHTML = `
-      <div id="play_image" style="background-image: url(` + playlist_art + `);"></div>
+      <div class="play_image" style="background-image: url(` + playlist_art + `);"></div>
 
-               <div id="playlist_det">
-                  <div id="play_name">
-                        <h3>`+playlist_name+`</h3>
-                        <p>`+creator_name+`</p>  
-                  </div>
-                                 
-                  <div id="reactions">
-                        <i class="fa fa-heart" style="font-size:20px; color:red"></i>
-                        <p>`+ likes +`</p>
-                  </div>
-               </div>             
+      <div id="playlist_det">
+         <div id="play_name">
+               <h3>`+playlist_name+`</h3>
+               <p>`+creator_name+`</p>  
+         </div>
+                        
+         <div id="reactions">
+               <i class="fa fa-heart-o" style="font-size:20px"></i>
+               <p>`+ likes +`</p>
+         </div>
+      </div>             
       `
 
-   new_article.addEventListener("click", ()=> {
+
+   let reactions_div = new_article.childNodes[3].childNodes[3]
+   reactions_div.childNodes[1].addEventListener("click", ()=> {
+
+      if (reactions_div.childNodes[1].getAttribute("class") == "fa fa-heart-o"){
+         reactions_div.childNodes[1].setAttribute("class", "fa fa-heart");
+         reactions_div.childNodes[1].setAttribute("style", "font-size:20px;color:red");
+         
+         // get current value, parse it to int and then increment by 1
+         reactions_div.childNodes[3].innerText = parseInt(reactions_div.childNodes[3].innerText) + 1;
+      } else {         
+         reactions_div.childNodes[1].setAttribute("class", "fa fa-heart-o");
+         reactions_div.childNodes[1].setAttribute("style", "font-size:20px;");
+
+         reactions_div.childNodes[3].innerText = 0;
+
+      }
+
+      
+   })
+   
+
+   new_article.childNodes[1].addEventListener("click", ()=> {
       openModal({name: playlist_name, imageUrl: playlist_art, all_songs: songs})
    })
 
    document.getElementById("main_section").appendChild(new_article)
-   
 
+   
 }
 
 // JavaScript for Opening and Closing the Modal
