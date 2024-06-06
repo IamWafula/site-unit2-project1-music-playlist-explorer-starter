@@ -26,33 +26,51 @@
                     <h1 id="playlistName"> Default Playlist Title </h1>                    
                     <img id="playlistImage" src="/music-playlist-creator/assets/img/playlist.png" alt="Festival Image">
                 </div>
+
+                <button class="shuffle">Shuffle</button>
                 
-                <div id="playlistSongs">
+                <ul id="playlistSongs">
                     
 
-                </div>
+                </ul>
 
             </div>
         </div>
 
         <!-- Your main content here -->
-        <section id="main_section">
-            <article onclick="openModal({name: 'Summer Beats Festival', imageUrl: 'path/to/festival.jpg', dates: 'July 15-17', location: 'Downtown Park', lineup: ['Artist A', 'Artist B']})" >
-                <div class="play_image" style="background-image: url('/music-playlist-creator/assets/img/post_malone.jpg');"></div>
+        <section>
 
-                <div id="playlist_det">
-                    <div id="play_name">
-                        <h3>Playlist title</h3>
-                        <p>Creator Name</p>  
+            <button id="go_to_featured" > featured Page </button>
+
+            <aside id="featured">
+                <h1>Featured</h1>
+                <img id="featured_image" src="/music-playlist-creator/assets/img/post_malone.jpg" ></img>
+                <h1 id="featured_name"></h1>
+                <ul id="featuredSongs">
+                    
+                </ul>
+
+            </aside>
+
+            <div id="main_section">
+                <article style="display: none;" onclick="openModal({name: 'Summer Beats Festival', imageUrl: 'path/to/festival.jpg', dates: 'July 15-17', location: 'Downtown Park', lineup: ['Artist A', 'Artist B']})" >
+                    <div class="play_image" style="background-image: url('/music-playlist-creator/assets/img/post_malone.jpg');"></div>
+    
+                    <div id="playlist_det">
+                        <div id="play_name">
+                            <h3>Playlist title</h3>
+                            <p>Creator Name</p>  
+                        </div>
+                                      
+                        <div id="reactions">
+                            <i class="fa fa-heart" style="font-size:20px; color:red"></i>
+                            <p>5</p>
+                        </div>
                     </div>
-                                  
-                    <div id="reactions">
-                        <i class="fa fa-heart" style="font-size:20px; color:red"></i>
-                        <p>5</p>
-                    </div>
-                </div>
-                
-            </article>        
+                    
+                </article>  
+            </div>
+                  
             
         </section>
     </main>
@@ -61,6 +79,7 @@
         <!-- Your footer content here -->
     </footer>
     <script src="data/data.js"></script>
+    <script src="featured.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

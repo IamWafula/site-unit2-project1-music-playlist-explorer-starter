@@ -2,12 +2,11 @@
 
 let all_playlists = data["playlists"];
 
-// add a heart on click
+// add items to side featured
 
-document.getElementById("reactions").addEventListener("click", () => {
-   alert("clicked")
-})
 
+
+// get allplaylist and add them to the home page
 for (let playlist in all_playlists){
 
    let playlist_art = all_playlists[playlist].playlist_art;
@@ -75,13 +74,11 @@ function openModal(festival) {
    document.getElementById('playlistImage').src = festival.imageUrl;
 
    let all_playlist_songs = festival.all_songs;
-   console.log(all_playlist_songs);
    
-
    for (let i = 0; i < all_playlist_songs.length; i++){
       let single_song = all_playlist_songs[i];
 
-      let new_div = document.createElement("div");
+      let new_div = document.createElement("li");
 
       new_div.innerHTML = `
          <image id="article_image" src="` + single_song.cover_art + `" />
@@ -97,10 +94,34 @@ function openModal(festival) {
       document.getElementById("playlistSongs").appendChild(new_div);
 
    }
-
    
    modal.style.display = "block";
+   let all_songs;
+   all_songs = [...document.getElementById("playlistSongs").childNodes];
+
+   // shuffle function
+
+
+   document.getElementsByClassName("shuffle")[0].addEventListener("click", ()=>{
+      let list_songs = document.querySelector("ul");
+
+      for (let i = list_songs.children.length; i>=0; i--){
+         list_songs.appendChild(list_songs.children[Math.random()*i | 0]);
+      }
+              
+   })
+
+   
 }
+
+// for testing Modal, comment out when done
+let playlist_art = all_playlists[0].playlist_art;
+let playlist_name =  all_playlists[0].playlist_name;
+let creator_name =  all_playlists[0].playlist_creator;
+let songs = all_playlists[0].songs;
+let likes = all_playlists[0].likeCount;
+
+// openModal({name: playlist_name, imageUrl: playlist_art, all_songs: songs})
 
 span.onclick = function() {
    modal.style.display = "none";
@@ -111,3 +132,10 @@ window.onclick = function(event) {
    }
 }
 
+// event listender for featured page
+document.getElementById("go_to_featured").addEventListener("click", ()=> {
+   let link_home = document.createElement("a");
+   link_home.setAttribute("href", "featured.html");
+
+   link_home.click()
+})
