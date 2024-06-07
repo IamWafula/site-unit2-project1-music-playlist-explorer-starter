@@ -7,6 +7,7 @@
     <title>Music Playlist Explorer</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,21 +17,38 @@
     </header>
 
     <main> 
+        
+        <!-- Form Modal -->
+        <div id="formModal" class="modal">
+            <form class="modal-content">            
+                <div id="playlist_details">                 
+                    <input id="form_playlistName" name="form_playlist_name" placeholder="playlist title 🖊️" value="default title 🖊️">
+                    <img id="form_playlistImage" src="/music-playlist-creator/assets/img/playlist.png" alt="Festival Image">
+                </div>
+
+                <button class="button-5" id="add_song">add song</button>
+                <button type="submit" class="button-5" id="save_playlist">save</button>
+
+                <ul id="form_playlistSongs">
+                    
+                    
+                </ul>
+
+            </form>
+        </div>
 
         <!-- Modal -->
         <div id="playlistModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-
-                <div id="playlist_details">                    
-                    <h1 id="playlistName"> Default Playlist Title </h1>                    
+            <div class="modal-content">            
+                <div id="playlist_details">      
+                    <span class="close">&times;</span>              
+                    <h1 id="playlistName"> Default Playlist Title </h1>                                      
                     <img id="playlistImage" src="/music-playlist-creator/assets/img/playlist.png" alt="Festival Image">
-                </div>
+                </div>                
 
-                <button class="shuffle">Shuffle</button>
+                <button class="button-5" id="shuffle">Shuffle</button>
                 
-                <ul id="playlistSongs">
-                    
+                <ul id="playlistSongs">                    
 
                 </ul>
 
@@ -40,7 +58,7 @@
         <!-- Your main content here -->
         <section>
 
-            <button id="go_to_featured" > featured Page </button>
+            <button class="button-5" id="go_to_featured" > featured Page </button>
 
             <aside id="featured">
                 <h1>Featured</h1>
@@ -53,21 +71,8 @@
             </aside>
 
             <div id="main_section">
-                <article style="display: none;" onclick="openModal({name: 'Summer Beats Festival', imageUrl: 'path/to/festival.jpg', dates: 'July 15-17', location: 'Downtown Park', lineup: ['Artist A', 'Artist B']})" >
-                    <div class="play_image" style="background-image: url('/music-playlist-creator/assets/img/post_malone.jpg');"></div>
-    
-                    <div id="playlist_det">
-                        <div id="play_name">
-                            <h3>Playlist title</h3>
-                            <p>Creator Name</p>  
-                        </div>
-                                      
-                        <div id="reactions">
-                            <i class="fa fa-heart" style="font-size:20px; color:red"></i>
-                            <p>5</p>
-                        </div>
-                    </div>
-                    
+                <article style="display: block; padding-top: 2%;" onclick="openformModal(null)" >
+                    <div class="play_image" style="background-image: url('/music-playlist-creator/assets/img/plus_synbol.png')"></div>
                 </article>  
             </div>
                   

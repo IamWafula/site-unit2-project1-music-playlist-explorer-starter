@@ -27,11 +27,17 @@ for (let i = 0; i < all_playlist_songs.length; i++){
 
  }
 
-// event listender for featured page
-document.getElementById("go_to_home").addEventListener("click", ()=> {
-    let link_home = document.createElement("a");
-    link_home.setAttribute("href", "index.html");
- 
-    link_home.click()
- })
+ // more appropriate would be to check if button exists
+ try {
+   // event listender for featured page
+   document.getElementById("go_to_home").addEventListener("click", ()=> {
+      let link_home = document.createElement("a");
+      link_home.setAttribute("href", "index.html");
+
+      link_home.click()
+   })
+ } catch (error) {
+   
+ }
+
  
