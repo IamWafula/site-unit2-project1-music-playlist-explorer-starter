@@ -92,3 +92,7 @@ alternative link
 ### Shout out
 
 Give a shout out to somebody from your cohort that especially helped you during your project. This can be a fellow peer, instructor, TA, mentor, etc.
+
+`
+  Big shoutout to Sammy, who defintely helped out with questions I didn't even know I had.
+`
