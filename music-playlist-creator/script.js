@@ -7,95 +7,118 @@ let all_playlists = data["playlists"];
 
 
 // get allplaylist and add them to the home page
-for (let playlist in all_playlists){
 
-   let playlist_art = all_playlists[playlist].playlist_art;
-   let playlist_name =  all_playlists[playlist].playlist_name;
-   let creator_name =  all_playlists[playlist].playlist_creator;
-   let songs = all_playlists[playlist].songs;
-   let likes = all_playlists[playlist].likeCount;
+function updateMainPage(){
+   all_playlists = data["playlists"]
 
-
-   let new_article = document.createElement("article")
-   new_article.innerHTML = `
-      <i class="fa fa-trash" style="font-size:20px; z-index:1; color:red; background-color:white"></i>
-
-      <div class="play_image" style="background-image: url(` + playlist_art + `);">             
-      </div>
-      <div id="playlist_det">
-         
-         <div id="play_name">
-               <h3>`+playlist_name+`</h3>
-               
-               <p>`+creator_name+`</p>  
-               
-         </div>
-                        
-         <div id="reactions">
-               <i class="fa fa-edit" style="font-size:20px; padding-right:10px"></i>
-
-               <i class="fa fa-heart-o" style="font-size:20px"></i>
-               
-               <p>`+ likes +`</p>
-               
-         </div>
-         
-      </div>             
-      `
-
-   let reactions_div = new_article.childNodes[5].childNodes[3]
-   reactions_div.childNodes[3].addEventListener("click", ()=> {
-
-      if (reactions_div.childNodes[3].getAttribute("class") == "fa fa-heart-o"){
-         reactions_div.childNodes[3].setAttribute("class", "fa fa-heart");
-         reactions_div.childNodes[3].setAttribute("style", "font-size:20px;color:red");
-         
-         // get current value, parse it to int and then increment by 1
-         reactions_div.childNodes[5].innerText = parseInt(reactions_div.childNodes[5].innerText) + 1;
-      } else {         
-         reactions_div.childNodes[3].setAttribute("class", "fa fa-heart-o");
-         reactions_div.childNodes[3].setAttribute("style", "font-size:20px;");
-
-         reactions_div.childNodes[5].innerText = 0;
-
-      }
-
-      
-   })
-
-   reactions_div.childNodes[1].addEventListener("click", ()=>{
-      openformModal(
-         {
-            "name": playlist_name,
-            "creator": creator_name,
-            "image" : playlist_art,
-            "songs": songs
-         }
-      )
-   })
+   document.getElementById("main_section").innerHTML = `
+         <article style="display: block; padding-top: 2%;" onclick="openformModal(null)" >
+            <div class="play_image" style="background-image: url('/music-playlist-creator/assets/img/plus_synbol.png')"></div>
+         </article> 
+   `
    
-   new_article.childNodes[3].addEventListener("click", ()=> {
-      openModal({name: playlist_name, imageUrl: playlist_art, all_songs: songs})
-   })
+   for (let playlist in all_playlists){
 
-   document.getElementById("main_section").appendChild(new_article)
+      let playlist_art = all_playlists[playlist].playlist_art;
+      let playlist_name =  all_playlists[playlist].playlist_name;
+      let creator_name =  all_playlists[playlist].playlist_creator;
+      let songs = all_playlists[playlist].songs;
+      let likes = all_playlists[playlist].likeCount;
+      let id = all_playlists[playlist].playlistID;
 
-   new_article.childNodes[1].addEventListener("click", ()=> {
-      new_article.remove()
-   })
+      let new_article = document.createElement("article")
+      new_article.innerHTML = `
+         <i class="fa fa-trash" style="font-size:20px; z-index:1; color:red; background-color:white"></i>
 
+         <div class="play_image" style="background-image: url(` + playlist_art + `);">             
+         </div>
+         <div id="playlist_det">
+            
+            <div id="play_name">
+                  <h3>`+playlist_name+`</h3>
+                  
+                  <p>`+creator_name+`</p>  
+                  
+            </div>
+                           
+            <div id="reactions">
+                  <i class="fa fa-edit" style="font-size:20px; padding-right:10px"></i>
+
+                  <i class="fa fa-heart-o" style="font-size:20px"></i>
+                  
+                  <p>`+ likes +`</p>
+                  
+            </div>
+            
+         </div>             
+         `
+
+      let reactions_div = new_article.childNodes[5].childNodes[3]
+      reactions_div.childNodes[3].addEventListener("click", ()=> {
+
+         if (reactions_div.childNodes[3].getAttribute("class") == "fa fa-heart-o"){
+            reactions_div.childNodes[3].setAttribute("class", "fa fa-heart");
+            reactions_div.childNodes[3].setAttribute("style", "font-size:20px;color:red");
+            
+            // get current value, parse it to int and then increment by 1
+            reactions_div.childNodes[5].innerText = parseInt(reactions_div.childNodes[5].innerText) + 1;
+         } else {         
+            reactions_div.childNodes[3].setAttribute("class", "fa fa-heart-o");
+            reactions_div.childNodes[3].setAttribute("style", "font-size:20px;");
+
+            reactions_div.childNodes[5].innerText = 0;
+
+         }
+
+         
+      })
+
+
+      reactions_div.childNodes[1].addEventListener("click", ()=>{
+         currentPlaylistId = id;
+         openformModal(
+            {
+               "id": id,
+               "name": playlist_name,
+               "creator": creator_name,
+               "image" : playlist_art,
+               "songs": songs
+            }
+         )
+      })
+      
+      new_article.childNodes[3].addEventListener("click", ()=> {
+         openModal({name: playlist_name, imageUrl: playlist_art, all_songs: songs})
+      })
+
+      document.getElementById("main_section").appendChild(new_article)
+
+      new_article.childNodes[1].addEventListener("click", ()=> {
+         
+         data["playlists"].splice(currentPlaylistId,1);
+         
+         new_article.remove()
+      })
+
+   }
 }
+
+
+updateMainPage()
 
 // JavaScript for Opening and Closing the Modal
 var modal = document.getElementById("playlistModal");
 var formModal = document.getElementById("formModal");
 var span = document.getElementsByClassName("close")[0];
+let currentPlaylistId;
 
 function openModal(festival) {
    document.getElementById('playlistName').innerText = festival.name;
    document.getElementById('playlistImage').src = festival.imageUrl;
 
    let all_playlist_songs = festival.all_songs;
+
+   document.getElementById("playlistSongs").innerHTML = ``
    
    for (let i = 0; i < all_playlist_songs.length; i++){
       let single_song = all_playlist_songs[i];
@@ -114,8 +137,7 @@ function openModal(festival) {
 
 
       new_div.setAttribute("id", "playlistSong");
-      
-      
+            
       document.getElementById("playlistSongs").appendChild(new_div);
 
    }
@@ -141,17 +163,20 @@ function openModal(festival) {
 
 
 function readImage(input){
-   console.log(input)
-
-
    let playlist_details = input.currentTarget.parentNode;
    let image_holder = playlist_details.children[0];
+
 
 
    var reader = new FileReader();
 
    reader.onload = function (e) {
-      image_holder.setAttribute('src', e.target.result)
+      
+      image_holder.setAttribute("alt", image_holder.getAttribute("src") )
+
+      image_holder.setAttribute('src', e.target.result)      
+      
+      // image_holder.setAttribute('src', "/music-playlist-creator/assets/img/post_malone.jpg")
    }
 
    reader.readAsDataURL(input.srcElement.files[0])
@@ -164,11 +189,15 @@ function openformModal(playlist) {
 
    if (playlist){
       //add playlist details
+      currentPlaylistId = playlist.id;
+
+
 
       let form_details = formModal.children[0]
       
-      form_details.children[0].children[1].value = playlist.name;
-
+      form_details[0].value = playlist.name;
+      
+      
       document.getElementById("form_playlistSongs").innerHTML = ''
       
 
@@ -192,23 +221,24 @@ function openformModal(playlist) {
             <input id="new_duration" type="text" placeholder="song Duration" value="`+song.duration+`">  
          `
          
+         edit_song.setAttribute("class", "new_song")
 
          edit_song.children[0].children[1].addEventListener("change", readImage)
 
          form_details.children[3].appendChild(edit_song)
       }
 
+      document.getElementById("save_playlist").addEventListener("click", savePlaylist)
 
    }else{      
       document.getElementById("formModal").innerHTML = `
          <form class="modal-content">            
-            <div id="playlist_details">      
-               <span class="close-form">&times;</span>              
-               <input id="form_playlistName" name="form_playlist_name" placeholder="playlist title 🖊️" value="default title">
-               <img id="playlistImage" src="/music-playlist-creator/assets/img/playlist.png" alt="Festival Image">
+            <div id="playlist_details">                               
+               <input required id="form_playlistName" name="form_playlist_name" placeholder="playlist title 🖊️">
+               <img required id="form_playlistImage" src="/music-playlist-creator/assets/img/playlist.png" alt="Festival Image">
             </div>
 
-            <button class="button-5" id="add_song">add song</button>
+            <button class="button-5" id="form_add_song">add song</button>
             <button type="submit" class="button-5" id="save_playlist">save</button>
 
             <ul id="form_playlistSongs">
@@ -218,6 +248,38 @@ function openformModal(playlist) {
 
          </form>
       `
+
+      document.getElementById("form_add_song").addEventListener("click", (target)=> {
+   
+         target.preventDefault();
+      
+         let main_form = document.getElementById("form_playlistSongs");
+      
+         let new_song = document.createElement("li");
+      
+         new_song.innerHTML = `      
+               <div id="playlist_image_input">
+                  <image width="100px" src="/music-playlist-creator/assets/img/song.png" class="new_article_image" id="article_image" height="100px" onchange="readImage(this);"></image>
+                  <input type="file" title="" >                            
+               </div>
+      
+               <div id="songDetails">
+                  <input required type="text"  placeholder="Song Name">
+                  <input required type="text" placeholder="Song Artist">
+                  <input required type="text"  placeholder="Song Album">
+               </div>
+               <input id="new_duration" type="text" placeholder="duration">                              
+         `   
+
+         new_song.setAttribute("class", "new_song")
+
+         new_song.children[0].children[1].addEventListener("change", readImage)
+
+         main_form.appendChild(new_song);
+      })
+      
+      document.getElementById("save_playlist").addEventListener("click", saveNewPlaylist)
+
    }
 }
 
@@ -249,6 +311,75 @@ document.getElementById("go_to_featured").addEventListener("click", ()=> {
    link_home.click()
 })
 
+// uri to url
+const toDataURL = url => fetch(url)
+  .then(response => response.blob())
+  .then(blob => new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => resolve(reader.result)
+    reader.onerror = reject
+    reader.readAsDataURL(blob)
+}))
+
+function saveNewPlaylist(target) {
+   target.preventDefault()
+
+   let form_details = formModal.getElementsByTagName("form")[0];
+
+   let new_playlist_name = form_details.children[0].children[0].value;
+
+   let all_new_songs = document.getElementsByClassName("new_song");
+
+   let all_songs = []
+
+   for (let i=0; i<all_new_songs.length; i++){
+      let song = all_new_songs[i];
+
+      let songName = song.children[1].children[0].value;
+      let songArtist = song.children[1].children[1].value;
+      let songAlbum = song.children[1].children[2].value;
+      
+
+      image_uri = song.children[0].children[1].getAttribute("src");
+      // console.log(image_uri,  song.children[0].children[0].getAttribute("src"))
+      let songCover = song.children[0].children[0].getAttribute("src");
+      //let songCover = "/music-playlist-creator/assets/img/post_malone.jpg"
+      toDataURL( song.children[0].children[0].getAttribute("src")).then(dataURL => {
+         songCover = dataURL;
+      })
+      
+
+      let songDuration = song.children[2].value;
+
+      if (songName && songArtist && songAlbum && songCover && songDuration){
+         all_songs.push({
+            "songID": i,
+            "title": songName,
+            "artist": songArtist,
+            "album": songAlbum,
+            "cover_art": songCover,
+            "duration": songDuration
+         })
+      }      
+   }
+   
+   // update data and refresh main page
+   // data["playlists"][currentPlaylistId].songs = all_songs;
+
+   data["playlists"].push({
+      "playlistID": data["playlists"].length,
+      "playlist_name": new_playlist_name,
+      "playlist_creator": "user",
+      "playlist_art": "https://picsum.photos/id/36/200",
+      "likeCount": 0,
+      "songs" : all_songs
+   })
+
+      
+   updateMainPage()
+
+}
+
 
 // save current input playlists
 
@@ -259,30 +390,61 @@ function savePlaylist(target){
 
    let new_playlist_name = form_details.childNodes[1].childNodes[3].value;
 
-   let all_new_songs = document.getElementsByClassName("new_song")
+   let all_new_songs = document.getElementsByClassName("new_song");
+
+   let all_songs = []
 
    for (let i=0; i<all_new_songs.length; i++){
       let song = all_new_songs[i];
+
       let songName = song.children[1].children[0].value;
       let songArtist = song.children[1].children[1].value;
       let songAlbum = song.children[1].children[2].value;
-      console.log(songName, songArtist, songAlbum)      
+      
+
+      image_uri = song.children[0].children[1].getAttribute("src");
+      // console.log(image_uri,  song.children[0].children[0].getAttribute("src"))
+      let songCover = song.children[0].children[0].getAttribute("src");
+      //let songCover = "/music-playlist-creator/assets/img/post_malone.jpg"
+      toDataURL( song.children[0].children[0].getAttribute("src")).then(dataURL => {
+         songCover = dataURL;
+      })
+      
+
+      let songDuration = song.children[2].value;
+
+      if (songName && songArtist && songAlbum && songCover && songDuration){
+         all_songs.push({
+            "songID": i,
+            "title": songName,
+            "artist": songArtist,
+            "album": songAlbum,
+            "cover_art": songCover,
+            "duration": songDuration
+         })
+      }      
    }
+   
+   console.log(currentPlaylistId)
+   // update data and refresh main page
+   data["playlists"][currentPlaylistId].songs = all_songs;
+      
+   updateMainPage()
 
 
 }
 
-document.getElementById("save_playlist").addEventListener("click", savePlaylist)
-
 document.getElementById("add_song").addEventListener("click", (target)=> {
+   
    target.preventDefault();
+
    let main_form = document.getElementById("form_playlistSongs");
 
    let new_song = document.createElement("li");
 
    new_song.innerHTML = `      
          <div id="playlist_image_input">
-            <image width="100px" src="/music-playlist-creator/assets/img/song.png" class="new_article_image" id="article_image" height="100px" onchange="readImage(this);"></image>
+            <image alt="new" width="100px" src="/music-playlist-creator/assets/img/playlist.png" class="new_article_image" id="article_image" height="100px" onchange="readImage(this);"></image>
             <input type="file" title="" >                            
          </div>
 
@@ -292,7 +454,32 @@ document.getElementById("add_song").addEventListener("click", (target)=> {
             <input type="text"  placeholder="Song Album">
          </div>
          <input id="new_duration" type="text" placeholder="duration">                              
-   `
+   `   
+   new_song.setAttribute("class", "new_song");
+
+   new_song.children[0].children[1].addEventListener("change", readImage)
 
    main_form.appendChild(new_song);
 })
+
+
+
+// filter songs
+function filterSongs(){
+   let search_term = document.getElementById("search_input").value;
+   let all_playlists = document.getElementById("main_section").children
+   for (let i = 1; i < all_playlists.length; i++){
+      let playlist = all_playlists[i]
+
+      let play_details = playlist.children[2]
+      let play_name = play_details.children[0].children[0].innerText;
+      let play_author = play_details.children[0].children[1].innerText;
+      
+
+      if( play_name.toLowerCase().indexOf(search_term.toLowerCase()) > -1 || play_author.toLowerCase().indexOf(search_term.toLowerCase()) > -1 ) {
+         playlist.style.display = "block";
+      } else {
+         playlist.style.display = "none";
+      }
+   }
+}

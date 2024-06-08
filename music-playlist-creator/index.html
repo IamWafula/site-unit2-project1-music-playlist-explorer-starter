@@ -7,7 +7,6 @@
     <title>Music Playlist Explorer</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,7 +21,7 @@
         <div id="formModal" class="modal">
             <form class="modal-content">            
                 <div id="playlist_details">                 
-                    <input id="form_playlistName" name="form_playlist_name" placeholder="playlist title 🖊️" value="default title 🖊️">
+                    <input id="form_playlistName" name="form_playlist_name" placeholder="playlist title 🖊️"  >
                     <img id="form_playlistImage" src="/music-playlist-creator/assets/img/playlist.png" alt="Festival Image">
                 </div>
 
@@ -59,6 +58,7 @@
         <section>
 
             <button class="button-5" id="go_to_featured" > featured Page </button>
+            <input type="text" id="search_input" onkeyup="filterSongs()" placeholder="enter search term">
 
             <aside id="featured">
                 <h1>Featured</h1>
